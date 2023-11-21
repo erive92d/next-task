@@ -3,11 +3,12 @@ import Link from 'next/link'
 import React from 'react'
 import { signIn, signOut } from "next-auth/react"
 import { useSession } from "next-auth/react"
+import { useRouter } from 'next/navigation'
 
 
 export default function Navigation() {
     const { data:session } = useSession();
-
+    const router = useRouter()
 
   return (
     <div className="navbar">
@@ -27,7 +28,7 @@ export default function Navigation() {
                     </li>
                      */}
                     {session ? <li>
-                        <button onClick={() => signOut()} className='btn btn-error btn-sm'>Log out</button>
+                        <button onClick={() => signOut({redirect: false}).then(() => { router.push("/") })} className='btn btn-error btn-sm'>Log out</button>
                     </li> : 
                         <li>
                             <Link href="/user/account/login">
@@ -54,7 +55,7 @@ export default function Navigation() {
                     </details>
                 </li> */}
                 {session && <li>
-                        <button onClick={() => signOut()} className='btn btn-error'>Log out</button>
+                        <button onClick={() => signOut({redirect: false}).then(() => { router.push("/") })} className='btn btn-error'>Log out</button>
                     </li>}
  
                 </ul>

@@ -7,7 +7,7 @@ import { TaskProps } from '@/props'
 import { putEditTask } from '@/controllers/editTask'
 
 export default function EditTask(task:TaskProps) {
-    console.log(task)
+
     const router = useRouter()
     const [newTask, setNewTask] = useState<TaskProps>(
         {

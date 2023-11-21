@@ -1,6 +1,6 @@
 import { TaskProps } from "@/props"
 
-export const putEditTask = async (id:string | undefined, newTask:TaskProps) => {
+export const putEditTask = async (id:string | undefined, newTask:TaskProps | string) => {
   
     try {
         const response = await fetch(`http://localhost:3000/api/tasks/${id}` , {

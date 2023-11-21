@@ -53,12 +53,14 @@ export const GET = async (req:NextRequest, res:NextResponse) => {
        
     try {
         // const {userEmail} = await req.json()
+        // console.log(userEmail, "Ssss")
         // const user = await User.find({email: userEmail})
-        // console.log(user)
+     
         const tasks = await Task.find()
         return new NextResponse(JSON.stringify(tasks), {status:200})
 
     } catch (error) {
-        
+        return new NextResponse("Error", {status: 500})
+
     }
 }

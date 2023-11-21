@@ -1,8 +1,6 @@
 
-import EditTask from '@/app/components/EditTask'
+import EditTask from '@/app/components/Actions/EditTask'
 import { getSingleTask } from '@/controllers/getSingleTask'
-import { TaskProps } from '@/props'
-import Error from 'next/error'
 import React, { useEffect, useState } from 'react'
 
 type ParamProps = {
@@ -15,7 +13,7 @@ type ParamProps = {
 export default async function EditTaskServer({params}:ParamProps) {     
     const { id } = params
     const task = await getSingleTask(id)
-    console.log(task)
+    
     if(task) {
         return <EditTask {...task} />
     } else {

@@ -1,8 +1,11 @@
+"use client"
+
 import React from 'react'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { FormEvent } from 'react'
 import Link from 'next/link'
+import { signIn } from 'next-auth/react'
 
 type formProps = {
     name: string
@@ -50,9 +53,7 @@ export default function SignupForm() {
             const { user } = await checkUserExist.json()
             
             if(user) {
-              
                 setError("User email already exists")
-               
                 return
             }
 
@@ -70,7 +71,7 @@ export default function SignupForm() {
                 //if success, empty all the inputs in the form
                 const form = e.target as HTMLFormElement
                 form.reset()
-                router.push("/user/account/login")
+                router.push("/auth/signIn")
                 // const data = await response.json()
             }
            
@@ -98,7 +99,8 @@ export default function SignupForm() {
                 <p className='w-1/2'>
                     Already have an account? 
                     <span className='link text-sm '>
-                        <Link href="/user/account/login">Log in</Link>
+                        <Link href="/auth/signIn">Log in</Link>
+
                     </span>
                 </p>
             </div>     

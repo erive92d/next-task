@@ -1,5 +1,4 @@
-"use client"
-
+import Status from '@/app/components/Actions/Status'
 import { getSingleTask } from '@/controllers/getSingleTask'
 import { TaskProps } from '@/props'
 import React, { useEffect, useState } from 'react'
@@ -10,14 +9,9 @@ type ParamProps = {
   }
 }
 
-export default  function GrabTask({params}:ParamProps) {
+export default  async function GrabTask({params}:ParamProps) {
 
-  const [task, setTask] = useState<TaskProps | null>(null)
-
-  useEffect(() => {
-    getSingleTask(params._id)
-    .then(res => setTask(res))
-  }, [params])
+  const task = await getSingleTask(params._id)
 
   if(!task) return <h1>Loading</h1>
 
@@ -34,7 +28,7 @@ export default  function GrabTask({params}:ParamProps) {
           <h1>Priority</h1>
           <p>{task.level} / 5</p>
         </div>
-        <button className='btn btn-success text-white'>Start</button>
+        <Status taskStatus={task.status} taskId={task._id}/>
       </div>
     </div>
   )

@@ -13,20 +13,9 @@ export const POST = async (req: NextRequest) => {
            { name, email, password: hashedPassword}
         )
         newUser.save()
-        // res.status(200).json({ token, user });
         return new NextResponse(JSON.stringify(newUser), {status:200})
     } catch (error) {
         return new NextResponse("Error", {status: 500})
     }
 }
 
-// export const GET = async (request: any) => {
-//     try {
-//         await connect()
-//         console.log("connected to the posts")
-//         const users = await User.find()
-//         return new NextResponse(JSON.stringify(users), {status:200})
-//     } catch (error) {
-//         return new NextResponse("Error", {status: 500})
-//     }
-// }

@@ -3,6 +3,7 @@ export interface TaskProps {
     level: number
     description:string
     _id?:string
+    status?: string
 }
 
 export interface UserProps {
