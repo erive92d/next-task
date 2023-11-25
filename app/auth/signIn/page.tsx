@@ -3,23 +3,36 @@
 import { signIn } from 'next-auth/react'
 import React, { useRef, useState } from 'react'
 
+
 export default function LoginPage() {
 
     const email = useRef("")
     const pass = useRef("")
 
-    const [error, setError] = useState<boolean>(false)
+    const [error, setError] = useState<string>("")
 
     const onSubmit = async (e: React.MouseEvent) => {
         e.preventDefault()
         const results = await signIn("credentials", {
             email: email.current,
             password: pass.current,
-            redirect: true,
+            redirect: false,
             callbackUrl:"/dashboard"
         }) 
 
-        console.log(results)
+        const revalidate = results?.error
+
+        if(revalidate?.includes("Password")) {
+            setError("Wrong Password")
+            return
+        } else if(revalidate?.includes("Email")) {
+            setError("Email does not exist")
+            return
+        } else {
+            window.location.replace("/dashboard")
+        }
+
+
 
     }
 
@@ -34,8 +47,16 @@ export default function LoginPage() {
                 </div>
                 <div className='flex justify-center'>
                     <button onClick={onSubmit} className='btn btn-success btn-wide'>Login</button>
+                    
                 </div>     
-            
+                {error &&
+                <div className='toast  toast-end
+                '>
+                    <div className='alert alert-error'>
+                        <span>{error}</span>
+                    </div>
+                </div>
+                }
           </form>
           {/* <button
                 className="bg-slate-600 rounded px-4 py-2 text-white"

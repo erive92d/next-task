@@ -9,9 +9,17 @@ export const POST = async (req: NextRequest) => {
         const {name, email, password} = await req.json()
         const hashedPassword = await bcrypt.hash(password, 10)
         await connect()
+
+        const user = await User.find({email: email})
+ 
+        if(user.length >= 1) {
+            return new NextResponse("Email already exists", {status: 501, statusText:"Email already exists"})
+        }
+
         const newUser = new User(
            { name, email, password: hashedPassword}
         )
+
         newUser.save()
         return new NextResponse(JSON.stringify(newUser), {status:200})
     } catch (error) {

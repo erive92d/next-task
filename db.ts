@@ -9,8 +9,8 @@ const connect = async () => {
     useUnifiedTopology: true,
   } as ConnectOptions; 
 
-  // const uri = process.env.MONGODB_URL
-    const uri = process.env.MONGOCOMP_URL
+  const uri = process.env.MONGODB_URL
+    // const uri = process.env.MONGOCOMP_URL
 
   
   if(!uri) {

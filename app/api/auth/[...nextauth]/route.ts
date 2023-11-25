@@ -20,7 +20,7 @@ export const authOptions: AuthOptions = {
             },
 
             async authorize(credentials:any, req) {
-               
+            
                const response = await fetch("http://localhost:3000/api/account/login", {
                     method: "POST",
                     headers: {
@@ -28,12 +28,18 @@ export const authOptions: AuthOptions = {
                     },
                     body: JSON.stringify(credentials)
                 })
-
+            
+               
                 const user = await response.json()
-
+                
                 if(response.ok && user) {
                     return user
                 } 
+
+            
+                // if(response.status === 501) {
+                //     console.log("wrong")
+                // }
 
                 return null
                 

@@ -42,21 +42,6 @@ export default function SignupForm() {
         }
         try {
 
-            const checkUserExist = await fetch("http://localhost:3000/api/account/userexists", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(email)
-            })
-
-            const { user } = await checkUserExist.json()
-            
-            if(user) {
-                setError("User email already exists")
-                return
-            }
-
             //if user doesn't exist, proceed to registration
 
             const response = await fetch("http://localhost:3000/api/account/register", {
@@ -66,6 +51,10 @@ export default function SignupForm() {
                 },
                 body: JSON.stringify(userForm)
             })
+
+            if(response.status === 501) {
+                setError("Email already exists")
+            }
             if(response.ok) {
                 // const data = await response.json()
                 //if success, empty all the inputs in the form

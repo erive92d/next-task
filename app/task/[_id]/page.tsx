@@ -26,7 +26,7 @@ export default  async function GrabTask({params}:ParamProps) {
         </div>
         <div>
           <h1>Priority</h1>
-          <p>{task.level} / 5</p>
+          <progress className="progress progress-accent w-56" value={task.level} max="5"></progress>
         </div>
         <Status taskStatus={task.status} taskId={task._id}/>
       </div>
