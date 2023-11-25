@@ -1,15 +1,19 @@
+import Status from '@/app/components/Actions/Status'
 import { getSingleTask } from '@/controllers/getSingleTask'
-import React from 'react'
+import { TaskProps } from '@/props'
+import React, { useEffect, useState } from 'react'
 
-type TaskProps = {
+type ParamProps = {
   params: {
     _id:string
   }
 }
 
-export default async function grabTask({params}:TaskProps) {
+export default  async function GrabTask({params}:ParamProps) {
 
   const task = await getSingleTask(params._id)
+
+  if(!task) return <h1>Loading</h1>
 
   return (
     <div className='flex flex-col justify-center items-center h-96'>
@@ -18,13 +22,13 @@ export default async function grabTask({params}:TaskProps) {
           <h1 className='text-2xl font-bold'>{task.title}</h1>
         </div>
         <div >
-          <textarea className='textarea bg-white textarea-lg p-1 textarea-bordered' value={task.description} />
+          <p>{task.description}</p>
         </div>
         <div>
           <h1>Priority</h1>
-          <p>{task.level} / 5</p>
+          <progress className="progress progress-accent w-56" value={task.level} max="5"></progress>
         </div>
-        <button className='btn btn-success text-white'>Start</button>
+        <Status taskStatus={task.status} taskId={task._id}/>
       </div>
     </div>
   )

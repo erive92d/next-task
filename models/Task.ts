@@ -14,6 +14,11 @@ const taskSchema = new Schema({
     level: {
         type: Number,
         required: true
+    },
+    status: {
+        type: String,
+        required: false,
+        default: "Not started"
     }
 
 })
